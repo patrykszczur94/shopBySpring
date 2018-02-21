@@ -2,8 +2,11 @@ package com.ratcoding.domain.repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -87,5 +90,40 @@ public class InMemoryProductRepository implements ProductRepository {
 			throw new IllegalArgumentException("can't find any article");
 		}
 		return neededProducts;
+	}
+
+	@Override
+	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParms) {
+ 		Set<Product> produstsByBrand = new HashSet<Product>();
+		Set<Product> produstsByCategory = new HashSet<Product>();
+		
+		// filterParms variable got from user
+		Set<String> criterias = filterParms.keySet();
+		// look for brand 
+		if(criterias.contains("brand")) { 
+			for (String brandname : filterParms.get("brand")) {
+				for (Product product : products) {
+					if(brandname.equals(product.getManufacturer())) { 
+						produstsByBrand.add(product);
+					}
+				}
+			}
+		}
+		// look for category 
+		if(criterias.contains("category")) { 
+			for(String category : filterParms.get("category")) { 
+				produstsByCategory.addAll(getProductByCategory(category));
+			}
+		}
+		
+		if (!produstsByCategory.isEmpty() && !produstsByBrand.isEmpty()) {
+			produstsByCategory.retainAll(produstsByBrand);
+			return produstsByCategory;
+		} else if (!produstsByCategory.isEmpty()) {
+			return produstsByCategory;
+		} else if (!produstsByBrand.isEmpty()) {
+			return produstsByBrand;
+		}
+		return null;
 	}
 }
