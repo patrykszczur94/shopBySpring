@@ -1,5 +1,6 @@
 package com.ratcoding.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,13 +24,19 @@ public class ProcuctServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProductByCategory(String category) {
-		return productRepository.getProductByCategory(category);
+	public List<Product> getProductByCriterias(String category, String manufacturer, BigDecimal price1, BigDecimal price2){
+		return productRepository.getProductByCriterias(category, manufacturer, price1, price2);
 	}
 
 	@Override
 	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParms) {
 		return productRepository.getProductsByFilter(filterParms);
 	}
+
+	@Override
+	public Product getProductById(String productId) {
+		return productRepository.getProductById(productId);
+	}
+	
 
 }

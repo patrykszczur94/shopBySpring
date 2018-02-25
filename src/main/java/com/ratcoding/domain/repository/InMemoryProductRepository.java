@@ -25,24 +25,32 @@ public class InMemoryProductRepository implements ProductRepository {
 		iphoneX.setManufacturer("Apple");
 		iphoneX.setUnitsInStock(10);
 		iphoneX.setCategory("smartphone");
+		iphoneX.setCondition("new");
+		iphoneX.setUnitsInOrder(100);
 
 		Product iphone8 = new Product("p2", "iphone 8", new BigDecimal("3000"));
 		iphone8.setDescription("iPhone is very expensive phone");
 		iphone8.setManufacturer("Apple");
 		iphone8.setUnitsInStock(10);
 		iphone8.setCategory("smartphone");
+		iphone8.setCondition("new");
+		iphone8.setUnitsInOrder(100);
 
 		Product iphone7 = new Product("p3", "iphone 7", new BigDecimal("2000"));
 		iphone7.setDescription("iPhone is very expensive phone");
 		iphone7.setManufacturer("Apple");
 		iphone7.setUnitsInStock(10);
 		iphone7.setCategory("smartphone");
+		iphone7.setCondition("new");
+		iphone7.setUnitsInOrder(100);
 
 		Product thinkPad = new Product("p4", "ThinkPad T530i", new BigDecimal("1000"));
 		thinkPad.setDescription("my notebook");
 		thinkPad.setManufacturer("IBM");
 		thinkPad.setUnitsInStock(1);
 		thinkPad.setCategory("notebook");
+		thinkPad.setCondition("new");
+		thinkPad.setUnitsInOrder(100);
 
 		products.add(iphoneX);
 		products.add(iphone8);
@@ -75,15 +83,26 @@ public class InMemoryProductRepository implements ProductRepository {
 	}
 
 	@Override
-	public List<Product> getProductByCategory(String category) {
+	public List<Product> getProductByCriterias(String category, String manufacturer, BigDecimal price1,
+			BigDecimal price2) {
 		List<Product> neededProducts = new ArrayList<Product>();
 
 		for (Iterator<Product> iterator = products.iterator(); iterator.hasNext();) {
 			Product product = iterator.next();
 
-			if (product.getCategory().equals(category)) {
-				neededProducts.add(product);
+			if (category != null) {
+				if (product.getCategory().equals(category)) {
+					neededProducts.add(product);
+				}
+			} else if (manufacturer != null) {
+				if (product.getManufacturer().equals(manufacturer)) {
+					if (product.getUnitPrice().compareTo(price1) == 1
+							&& product.getUnitPrice().compareTo(price2) == -1) {
+						neededProducts.add(product);
+					}
+				}
 			}
+
 		}
 
 		if (neededProducts.isEmpty()) {
@@ -94,28 +113,28 @@ public class InMemoryProductRepository implements ProductRepository {
 
 	@Override
 	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParms) {
- 		Set<Product> produstsByBrand = new HashSet<Product>();
+		Set<Product> produstsByBrand = new HashSet<Product>();
 		Set<Product> produstsByCategory = new HashSet<Product>();
-		
+
 		// filterParms variable got from user
 		Set<String> criterias = filterParms.keySet();
-		// look for brand 
-		if(criterias.contains("brand")) { 
+		// look for brand
+		if (criterias.contains("brand")) {
 			for (String brandname : filterParms.get("brand")) {
 				for (Product product : products) {
-					if(brandname.equals(product.getManufacturer())) { 
+					if (brandname.equals(product.getManufacturer())) {
 						produstsByBrand.add(product);
 					}
 				}
 			}
 		}
-		// look for category 
-		if(criterias.contains("category")) { 
-			for(String category : filterParms.get("category")) { 
-				produstsByCategory.addAll(getProductByCategory(category));
+		// look for category
+		if (criterias.contains("category")) {
+			for (String category : filterParms.get("category")) {
+				produstsByCategory.addAll(getProductByCriterias(category, null, null, null));
 			}
 		}
-		
+
 		if (!produstsByCategory.isEmpty() && !produstsByBrand.isEmpty()) {
 			produstsByCategory.retainAll(produstsByBrand);
 			return produstsByCategory;

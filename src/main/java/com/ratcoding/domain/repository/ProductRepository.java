@@ -1,5 +1,6 @@
 package com.ratcoding.domain.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,8 +13,8 @@ public interface ProductRepository {
 
 	Product getProductById(String id);
 	
-	List<Product> getProductByCategory(String category);
-	
+	List<Product> getProductByCriterias(String category, String manufacturer, BigDecimal price1, BigDecimal price2);
+
 	Set<Product> getProductsByFilter(Map<String, List<String>> filterParms);
 	
 }
