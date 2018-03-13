@@ -17,6 +17,11 @@
 			</div>
 		</div>
 	</section>
+	<div align="middle">
+		<a href="<spring:url value="/products/add"/>"
+			class="btn btn-info btn-large">Add material</a>
+	</div>
+	<br/><br/><br/>
 	<section class="container">
 		<div class="row">
 			<c:forEach items="${products}" var="product">

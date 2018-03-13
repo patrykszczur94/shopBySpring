@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -65,16 +67,9 @@ public class InMemoryProductRepository implements ProductRepository {
 
 	@Override
 	public Product getProductById(String id) {
-		Product neededProduct = null;
 
-		for (Iterator<Product> iterator = products.iterator(); iterator.hasNext();) {
-			Product product = iterator.next();
-
-			if (product.getProductId().equals(id)) {
-				neededProduct = product;
-				break;
-			}
-		}
+		Product neededProduct = getAllProctucts().stream().filter(s -> s.getProductId().equals(id)).findFirst()
+				.orElse(null);
 
 		if (neededProduct == null) {
 			throw new IllegalArgumentException("can't find any article");
@@ -87,22 +82,12 @@ public class InMemoryProductRepository implements ProductRepository {
 			BigDecimal price2) {
 		List<Product> neededProducts = new ArrayList<Product>();
 
-		for (Iterator<Product> iterator = products.iterator(); iterator.hasNext();) {
-			Product product = iterator.next();
-
-			if (category != null) {
-				if (product.getCategory().equals(category)) {
-					neededProducts.add(product);
-				}
-			} else if (manufacturer != null) {
-				if (product.getManufacturer().equals(manufacturer)) {
-					if (product.getUnitPrice().compareTo(price1) == 1
-							&& product.getUnitPrice().compareTo(price2) == -1) {
-						neededProducts.add(product);
-					}
-				}
-			}
-
+		if (category != null) {
+			neededProducts = getAllProctucts().stream().filter(product -> product.getCategory().equals(category))
+					.collect(Collectors.toList());
+		} else if (manufacturer != null) {
+			neededProducts = getAllProctucts().stream()
+					.filter(product -> product.getManufacturer().equals(manufacturer)).collect(Collectors.toList());
 		}
 
 		if (neededProducts.isEmpty()) {
@@ -144,5 +129,10 @@ public class InMemoryProductRepository implements ProductRepository {
 			return produstsByBrand;
 		}
 		return null;
+	}
+
+	@Override
+	public void addProduct(Product product) {
+		products.add(product);
 	}
 }

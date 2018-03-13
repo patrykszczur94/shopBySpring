@@ -4,16 +4,17 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import javax.sound.sampled.LineListener;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ratcoding.domain.Product;
 import com.ratcoding.service.ProductService;
 
 @Controller
@@ -65,4 +66,20 @@ public class ProductController {
 		model.addAttribute("products", productService.getProductByCriterias(null, manufacturer, price1, price2));
 		return "products";
 	}
+
+	// adding new material part
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getAddNewProductForm(Model model) {
+		Product newProduct = new Product();
+		model.addAttribute("newProduct", newProduct);
+		return "addProduct";
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String postAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
+		productService.addProduct(newProduct);
+		return "redirect:/products";
+
+	} // end adding
 }

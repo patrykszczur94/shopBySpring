@@ -24,7 +24,8 @@ public class ProcuctServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProductByCriterias(String category, String manufacturer, BigDecimal price1, BigDecimal price2){
+	public List<Product> getProductByCriterias(String category, String manufacturer, BigDecimal price1,
+			BigDecimal price2) {
 		return productRepository.getProductByCriterias(category, manufacturer, price1, price2);
 	}
 
@@ -37,6 +38,10 @@ public class ProcuctServiceImpl implements ProductService {
 	public Product getProductById(String productId) {
 		return productRepository.getProductById(productId);
 	}
-	
+
+	@Override
+	public void addProduct(Product product) {
+		productRepository.addProduct(product);
+	}
 
 }
