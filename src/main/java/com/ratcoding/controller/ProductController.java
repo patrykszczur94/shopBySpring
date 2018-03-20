@@ -1,18 +1,27 @@
 package com.ratcoding.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ratcoding.domain.Product;
 import com.ratcoding.service.ProductService;
@@ -77,9 +86,37 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String postAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
+	public String postAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result,
+			HttpServletRequest httpServletRequest) {
+
+		String[] suppressedFields = result.getSuppressedFields();
+		if (suppressedFields.length > 0) {
+			// exception handling level hard
+			throw new RuntimeException(
+					"unacceptable fields\n" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+		}
+
+		MultipartFile productImage = newProduct.getProductImage();
+		String rootDirectory = httpServletRequest.getSession().getServletContext().getRealPath("/");
+
+		if (productImage != null) {
+			try {
+				productImage
+						.transferTo(new File(rootDirectory + "resources\\images\\" + newProduct.getName() + ".jpg"));
+			} catch (IllegalStateException illegalStateException) {
+				throw new RuntimeException("file upload error IllegalStateException", illegalStateException);
+			} catch (IOException iOException) {
+				throw new RuntimeException("file upload error IOException", iOException);
+			}
+		}
 		productService.addProduct(newProduct);
 		return "redirect:/products";
-
-	} // end adding
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+//		webDataBinder.setAllowedFields(allowedFields);
+		webDataBinder.setDisallowedFields("unitsInOrder", "discounted");
+	}
+	// end adding
 }

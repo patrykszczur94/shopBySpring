@@ -21,8 +21,8 @@ public class InMemoryProductRepository implements ProductRepository {
 
 	public InMemoryProductRepository() {
 
-		Product iphoneX = new Product("p1", "iphone x", new BigDecimal("5000"));
-		iphoneX.setProductId("p1");
+		Product iphoneX = new Product("p0", "apple", new BigDecimal("5000"));
+		iphoneX.setProductId("apple");
 		iphoneX.setDescription("iPhone is very expensive phone");
 		iphoneX.setManufacturer("Apple");
 		iphoneX.setUnitsInStock(10);
@@ -30,7 +30,7 @@ public class InMemoryProductRepository implements ProductRepository {
 		iphoneX.setCondition("new");
 		iphoneX.setUnitsInOrder(100);
 
-		Product iphone8 = new Product("p2", "iphone 8", new BigDecimal("3000"));
+		Product iphone8 = new Product("p1", "apple", new BigDecimal("3000"));
 		iphone8.setDescription("iPhone is very expensive phone");
 		iphone8.setManufacturer("Apple");
 		iphone8.setUnitsInStock(10);
@@ -38,7 +38,7 @@ public class InMemoryProductRepository implements ProductRepository {
 		iphone8.setCondition("new");
 		iphone8.setUnitsInOrder(100);
 
-		Product iphone7 = new Product("p3", "iphone 7", new BigDecimal("2000"));
+		Product iphone7 = new Product("p2", "apple", new BigDecimal("2000"));
 		iphone7.setDescription("iPhone is very expensive phone");
 		iphone7.setManufacturer("Apple");
 		iphone7.setUnitsInStock(10);
@@ -46,7 +46,7 @@ public class InMemoryProductRepository implements ProductRepository {
 		iphone7.setCondition("new");
 		iphone7.setUnitsInOrder(100);
 
-		Product thinkPad = new Product("p4", "ThinkPad T530i", new BigDecimal("1000"));
+		Product thinkPad = new Product("T530i", "T530i", new BigDecimal("1000"));
 		thinkPad.setDescription("my notebook");
 		thinkPad.setManufacturer("IBM");
 		thinkPad.setUnitsInStock(1);

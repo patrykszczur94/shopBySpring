@@ -18,6 +18,7 @@
 	</section>
 	<section class="container">
 		<div class="row">
+		    <h3>Product id : ${product.productId}</h3>
 			<h3>Product name : ${product.name}</h3>
 			<h3>Product description : ${product.description}</h3>
 			<h3>Product code : ${product.productId}</h3>

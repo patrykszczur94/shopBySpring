@@ -21,11 +21,18 @@
 		<a href="<spring:url value="/products/add"/>"
 			class="btn btn-info btn-large">Add material</a>
 	</div>
-	<br/><br/><br/>
+	<br />
+	<br />
+	<br />
 	<section class="container">
+		<div></div>
 		<div class="row">
 			<c:forEach items="${products}" var="product">
 				<div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+					<img
+						src="<c:url value="/resources/images/${product.name}.jpg"></c:url>"
+						alt="image" style="width: 100%" />
+
 					<div class="row">
 						<div class="caption">
 							<p>product name : ${product.name}</p>
