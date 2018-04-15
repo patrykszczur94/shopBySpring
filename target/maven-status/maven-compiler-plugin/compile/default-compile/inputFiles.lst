@@ -1,9 +1,12 @@
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/domain/repository/CustomerRepository.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/service/impl/CustomerServiceImpl.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/domain/Product.java
+/home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/config/SecurityConfig.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/domain/Customer.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/controller/LoginController.java
+/home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/config/SpringSecurityInitializer.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/service/ProductService.java
+/home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/config/WebMvcConfig.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/controller/OrderController.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/service/OrderService.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/controller/HomeController.java
@@ -14,4 +17,5 @@
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/domain/repository/InMemoryCustomerRepository.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/service/impl/ProcuctServiceImpl.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/domain/repository/ProductRepository.java
+/home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/config/AppInitializer.java
 /home/pszczur/Documents/workspace-sts-3.9.2.RELEASE/shopBySpring/src/main/java/com/ratcoding/service/impl/OrderServiceImpl.java

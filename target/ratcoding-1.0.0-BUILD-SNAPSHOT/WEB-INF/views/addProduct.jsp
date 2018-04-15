@@ -23,10 +23,25 @@
 	</section>
 	<c:url value="/logout" var="logoutUrl" />
 	<a href="${logoutUrl}">Log Out</a>
-	<form:form modelAttribute="newProduct" class="form-horizontal">
+	<form:form modelAttribute="newProduct" class="form-horizontal"
+		encrypte="multipart/form-data">
 		<fieldset>
-
 			<table style="with: 50%">
+				<tr>
+					<td>product image</td>
+					<td><div>
+
+							<div class="form-group">
+								<label class="control-label col-lg-2" for="productImage">
+									<spring:message code="addProdcut.form.productImage.label" />
+								</label>
+								<div class="col-lg-10">
+									<form:input id="productImage" path="productImage" name="productImage" type="file"
+										class="form:input-large" />
+								</div>
+							</div>
+						</div></td>
+				</tr>
 				<tr>
 					<td><spring:message code="addProduct.form.productId.label" /></td>
 					<td><form:input id="productId" path="productId" type="text"
@@ -74,11 +89,11 @@
 					</tr> --%>
 				<tr>
 					<td><spring:message code="addProduct.form.condition.label" /></td>
-					<td><form:radiobutton path="condition" value="New" />
-						<spring:message code="addProduct.form.new.label" />
-						<form:radiobutton path="condition" value="Old" /> Old <form:radiobutton
-							path="condition" value="Refurbished" />
-						<spring:message code="addProduct.form.refurbished.label" /></td>
+					<td><form:radiobutton path="condition" value="New" /> <spring:message
+							code="addProduct.form.new.label" /> <form:radiobutton
+							path="condition" value="Old" /> Old <form:radiobutton
+							path="condition" value="Refurbished" /> <spring:message
+							code="addProduct.form.refurbished.label" /></td>
 				</tr>
 				<tr>
 					<td><input type="submit" id="btnAdd" class="btn btn-primary"

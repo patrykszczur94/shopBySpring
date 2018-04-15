@@ -2,9 +2,12 @@ package com.ratcoding.domain;
 
 import java.math.BigDecimal;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.springframework.web.multipart.MultipartFile;
 
-
+@XmlRootElement
 public class Product {
 
 	private String productId;
@@ -17,6 +20,7 @@ public class Product {
 	private long unitsInOrder;
 	private boolean discounted;
 	private String condition;
+	
 	private MultipartFile productImage;
 	
 	public Product() {
@@ -109,6 +113,7 @@ public class Product {
 		this.condition = condition;
 	}
 	
+	@XmlTransient
 	public MultipartFile getProductImage() {
 		return productImage;
 	}
